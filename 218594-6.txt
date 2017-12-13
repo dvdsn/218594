@@ -1,0 +1,170 @@
+
+
+# matrixGen = matrix with the list of average voltage for LAN, N400 and P600 effects for each item, each subject and each condition
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+library(R.matlab)
+library(lme4)
+m = readMat("matrixGen.txt") 
+
+################################################## MATRIX PREPARATION #####################################################
+d = m[[1]]
+d <- data.frame(d)
+
+# c: condition (Agreement: 1,2,5,6; Disagreement: 3,4,7,8)
+# i: item (1-240)
+# s: subjID (1-80)
+
+names(d) <- c("c","idx","i","s","vLAN","vN400","vP600")
+d$c <- paste("c",d$c,sep="")
+d$s <- paste("s",d$s,sep="")
+d$i <- paste("i",d$i,sep="")
+d$c <- as.factor(d$c)
+d$s <- as.factor(d$s)
+d$i <- as.factor(d$i)
+d$snt <- 'dis'
+d[d$c=="c1",]$snt <- 'agr'
+d[d$c=="c2",]$snt <- 'agr'
+d[d$c=="c5",]$snt <- 'agr'
+d[d$c=="c6",]$snt <- 'agr'
+d$snt <- as.factor(d$snt)
+
+################################################## CORRELATIONS #########################################################
+# Figure 3: correlations LAN-P600/ N400-P600 by Item and by Subjects 
+
+t<-byS[,-c(3,4,5)]
+tdiff<-aggregate(.~s, data=t, diff)
+v<-byI[,-c(3,4,5)]
+vdiff<-aggregate(.~i, data=v, diff)
+
+tiff(file = "Figure 3.tiff", width = 3200, height = 5000, units = "px", res = 600)
+
+attach(mtcars)
+par(mfrow=c(2,2)) 
+
+plot(tdiff$vP600, tdiff$vLAN, main="Subjects", xlab="P600 effect", ylab="LAN effect", xlim=c(-11, 11), ylim=c(-7, 7), pch='*') 
+abline(lm(tdiff$vLAN~tdiff$vP600), col="red") # regression line (y~x)
+abline(h = 0)
+abline(v = 0)
+text(8,7,"I",font=2)
+text(-8,7,"II",font=2)
+text(-8,-7,"III",font=2)
+text(8,-7,"IV",font=2)
+
+plot(vdiff$vP600, vdiff$vLAN, main="Items", xlab="P600 effect", ylab="LAN effect",xlim=c(-11, 11), ylim=c(-7, 7), pch='*') 
+abline(lm(vdiff$vLAN~vdiff$vP600), col="red") # regression line (y~x)
+abline(h = 0)
+abline(v = 0)
+text(8,7,"I",font=2)
+text(-8,7,"II",font=2)
+text(-8,-7,"III",font=2)
+text(8,-7,"IV",font=2)
+
+
+plot(tdiff$vP600, tdiff$vN400, main="Subjects", xlab="P600 effect", ylab="N400 effect", xlim=c(-11, 11), ylim=c(-7, 7), pch='*') 
+abline(lm(tdiff$vN400~tdiff$vP600), col="red") # regression line (y~x)
+abline(h = 0)
+abline(v = 0)
+text(8,7,"I",font=2)
+text(-8,7,"II",font=2)
+text(-8,-7,"III",font=2)
+text(8,-7,"IV",font=2)
+
+plot(vdiff$vP600, vdiff$vN400, main="Items", xlab="P600 effect", ylab="N400 effect",xlim=c(-11, 11), ylim=c(-7, 7), pch='*') 
+abline(lm(vdiff$vN400~vdiff$vP600), col="red") # regression line (y~x)
+abline(h = 0)
+abline(v = 0)
+text(8,7,"I",font=2)
+text(-8,7,"II",font=2)
+text(-8,-7,"III",font=2)
+text(8,-7,"IV",font=2)
+
+dev.off() 
+
+
+################################################## LMER #########################################################
+
+mA<-lmer(vLAN ~ snt + (1 | i),data=d)
+summary (mA)
+
+mB<-lmer(vLAN ~ snt + (1 | s) + (1 | i),data=d)
+summary (mB)
+
+mC<-lmer(vLAN ~ snt + (1 + snt | s) + (1 | i),data=d)
+summary (mC)
+
+mD<-lmer(vLAN ~ snt + (1 + snt | s) + (1 + snt | i),data=d)
+summary (mD)
+
+
+# p-value estimates
+coefs <- data.frame(coef(summary(mC)))
+coefs$p.z <- 2 * (1 - pnorm(abs(coefs$t.value)))
+coefs
+
+# model comparison
+anova(mA, mB, mC, mD)
+
+# subject specific N400 violation effect
+mE<-lmer(vLAN ~ snt +snt*vN400+ (1+snt*vN400|s),data=d)
+summary (mE)
+
+
+
+################################################## LMER PLOTS #########################################################
+# Figure 4
+
+m1<-lmer(vLAN ~ snt + (1 + snt | s) + (1 | i),data=d)
+m2<-lmer(vP600 ~ snt + (1 + snt | s) + (1 | i),data=d)
+
+tiff(file = "Figure 4.tiff", width = 8400, height = 4200, units = "px", res = 600)
+
+
+attach(mtcars)
+par(mfrow=c(2,2)) 
+
+
+# LMER LAN control condition
+
+p1<-plot(density(ranef(m1)$i$"(Intercept)"+fixef(m1)[1]),col="red",  main="LMER LAN-control condition", xlab=expression(paste(mu,"V", sep="")), ylab="Density",xlim=c(-10, 10), ylim=c(0, 1.5),lwd=2)
+lines(density(ranef(m1)$s$"(Intercept)"+fixef(m1)[1]),col="blue",lwd=2)
+abline(v = fixef(m1)[1],lty=3,lwd=2)
+legend("topleft", c("Item", "Subject","Mean"),lty=c(1,1,3), lwd=c(2,2,2),col=c("red","blue","black"),bty="n") 
+abline(h=0, col="grey",lwd=2)
+
+
+
+# LMER P600 control condition
+
+p2<-plot(density(ranef(m2)$i$"(Intercept)"+fixef(m2)[1]),col="red",  main="LMER P600-control condition", xlab=expression(paste(mu,"V", sep="")), ylab="Density",xlim=c(-10, 10), ylim=c(0, 1.5),lwd=2)
+lines(density(ranef(m2)$s$"(Intercept)"+fixef(m2)[1]),col="blue",lwd=2)
+abline(v = fixef(m2)[1],lty=3,lwd=2)
+legend("topleft", c("Item", "Subject","Mean"),lty=c(1,1,3), lwd=c(2,2,2),col=c("red","blue","black"),bty="n") 
+abline(h=0, col="grey",lwd=2)
+
+
+
+# LMER LAN effect
+
+p3<-plot(density(ranef(m1)$s$"(Intercept)"+fixef(m1)[1]),col="blue",  main="LMER LAN effect", xlab=expression(paste(mu,"V", sep="")), ylab="Density",xlim=c(-10, 10), ylim=c(0, 1.5),lwd=2)
+lines(density(ranef(m1)$s$"sntDis"+fixef(m1)[2]),col="green2",lwd=2)
+abline(v = fixef(m1)[1],lty=3,col="blue",lwd=2)
+abline(v = fixef(m1)[2],lty=3,col="green3",lwd=2)
+legend("topleft", c("Agr", "ES","Mean Agr","Mean ES"),lty=c(1,1,3,3), lwd=c(2,2,2,2),col=c("blue","green2","blue","green3"),bty="n") 
+abline(h=0, col="grey",lwd=2)
+
+
+
+# LMER P600 effect
+
+p4<-plot(density(ranef(m2)$s$"(Intercept)"+fixef(m2)[1]),col="blue",  main="LMER P600 effect", xlab=expression(paste(mu,"V", sep="")), ylab="Density",xlim=c(-10, 10), ylim=c(0, 1.5),lwd=2)
+lines(density(ranef(m2)$s$"sntDis"+fixef(m2)[2]),col="green2",lwd=2)
+abline(v = fixef(m2)[1],lty=3, col="blue",lwd=2)
+abline(v = fixef(m2)[2],lty=3, col="green3",lwd=2)
+legend("topleft", c("Agr", "ES","Mean Agr","Mean ES"),lty=c(1,1,3,3), lwd=c(2,2,2,2),col=c("blue","green2","blue","green3"),bty="n") 
+abline(h=0, col="grey",lwd=2)
+
+
+
+dev.off()

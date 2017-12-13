@@ -1,0 +1,199 @@
+%% Average and plot each subject
+% agr0001_Ca = output of fieldtrip ft_timelockanalysis function for each
+% subject and each condition
+
+cfg=[];
+cfg.keepindividual = 'yes';
+Agr= ft_timelockgrandaverage(cfg, agr001_Ca, agr002_Ca, agr003_Ca, agr004_Ca, agr005_Ca, agr006_Ca, agr007_Ca, agr008_Ca, agr009_Ca, agr010_Ca, agr011_Ca, agr012_Ca, agr013_Ca, agr014_Ca, agr015_Ca, agr016_Ca, agr017_Ca, agr018_Ca, agr019_Ca, agr020_Ca, agr021_Ca, agr022_Ca, agr023_Ca, agr024_Ca, agr002_Eu, agr003_Eu, agr004_Eu, agr005_Eu, agr006_Eu, agr007_Eu, agr008_Eu, agr009_Eu, agr010_Eu, agr011_Eu, agr012_Eu, agr013_Eu, agr014_Eu, agr015_Eu, agr017_Eu, agr018_Eu, agr019_Eu, agr020_Eu, agr021_Eu, agr022_Eu, agr023_Eu, agr024_Eu, agr025_Eu, agr027_Eu, agrPADOVA0001, agrPADOVA0002, agrPADOVA0003, agrPADOVA0004, agrPADOVA0005, agrPADOVA0006, agrPADOVA0007, agrPADOVA0008, agrPADOVA0009, agrPADOVA0010, agrPADOVA0011, agrPADOVA0012, agrPADOVA0013, agrPADOVA0014, agrPADOVA0015, agrPADOVA0016, agrPADOVA0017, agrPADOVA0018, agrPADOVA0019, agrPADOVA0020, agrPADOVA0021, agrPADOVA0022, agrPADOVA0023, agrPADOVA0024, agrPADOVA0025, agrPADOVA0026, agrPADOVA0027, agrPADOVA0028, agrPADOVA0029, agrPADOVA0030, agrPADOVA0031, agrPADOVA0032);
+
+cfg=[];
+cfg.keepindividual = 'no';
+AgrAll= ft_timelockgrandaverage(cfg, agr001_Ca, agr002_Ca, agr003_Ca, agr004_Ca, agr005_Ca, agr006_Ca, agr007_Ca, agr008_Ca, agr009_Ca, agr010_Ca, agr011_Ca, agr012_Ca, agr013_Ca, agr014_Ca, agr015_Ca, agr016_Ca, agr017_Ca, agr018_Ca, agr019_Ca, agr020_Ca, agr021_Ca, agr022_Ca, agr023_Ca, agr024_Ca, agr002_Eu, agr003_Eu, agr004_Eu, agr005_Eu, agr006_Eu, agr007_Eu, agr008_Eu, agr009_Eu, agr010_Eu, agr011_Eu, agr012_Eu, agr013_Eu, agr014_Eu, agr015_Eu, agr017_Eu, agr018_Eu, agr019_Eu, agr020_Eu, agr021_Eu, agr022_Eu, agr023_Eu, agr024_Eu, agr025_Eu, agr027_Eu, agrPADOVA0001, agrPADOVA0002, agrPADOVA0003, agrPADOVA0004, agrPADOVA0005, agrPADOVA0006, agrPADOVA0007, agrPADOVA0008, agrPADOVA0009, agrPADOVA0010, agrPADOVA0011, agrPADOVA0012, agrPADOVA0013, agrPADOVA0014, agrPADOVA0015, agrPADOVA0016, agrPADOVA0017, agrPADOVA0018, agrPADOVA0019, agrPADOVA0020, agrPADOVA0021, agrPADOVA0022, agrPADOVA0023, agrPADOVA0024, agrPADOVA0025, agrPADOVA0026, agrPADOVA0027, agrPADOVA0028, agrPADOVA0029, agrPADOVA0030, agrPADOVA0031, agrPADOVA0032);
+
+
+cfg=[];
+cfg.keepindividual = 'yes';
+Dis= ft_timelockgrandaverage(cfg, dis001_Ca, dis002_Ca, dis003_Ca, dis004_Ca, dis005_Ca, dis006_Ca, dis007_Ca, dis008_Ca, dis009_Ca, dis010_Ca, dis011_Ca, dis012_Ca, dis013_Ca, dis014_Ca, dis015_Ca, dis016_Ca, dis017_Ca, dis018_Ca, dis019_Ca, dis020_Ca, dis021_Ca, dis022_Ca, dis023_Ca, dis024_Ca, dis002_Eu, dis003_Eu, dis004_Eu, dis005_Eu, dis006_Eu, dis007_Eu, dis008_Eu, dis009_Eu, dis010_Eu, dis011_Eu, dis012_Eu, dis013_Eu, dis014_Eu, dis015_Eu, dis017_Eu, dis018_Eu, dis019_Eu, dis020_Eu, dis021_Eu, dis022_Eu, dis023_Eu, dis024_Eu, dis025_Eu, dis027_Eu, disPADOVA0001, disPADOVA0002, disPADOVA0003, disPADOVA0004, disPADOVA0005, disPADOVA0006, disPADOVA0007, disPADOVA0008, disPADOVA0009, disPADOVA0010, disPADOVA0011, disPADOVA0012, disPADOVA0013, disPADOVA0014, disPADOVA0015, disPADOVA0016, disPADOVA0017, disPADOVA0018, disPADOVA0019, disPADOVA0020, disPADOVA0021, disPADOVA0022, disPADOVA0023, disPADOVA0024, disPADOVA0025, disPADOVA0026, disPADOVA0027, disPADOVA0028, disPADOVA0029, disPADOVA0030, disPADOVA0031, disPADOVA0032);
+
+cfg=[];
+cfg.keepindividual = 'no';
+DisAll= ft_timelockgrandaverage(cfg, dis001_Ca, dis002_Ca, dis003_Ca, dis004_Ca, dis005_Ca, dis006_Ca, dis007_Ca, dis008_Ca, dis009_Ca, dis010_Ca, dis011_Ca, dis012_Ca, dis013_Ca, dis014_Ca, dis015_Ca, dis016_Ca, dis017_Ca, dis018_Ca, dis019_Ca, dis020_Ca, dis021_Ca, dis022_Ca, dis023_Ca, dis024_Ca, dis002_Eu, dis003_Eu, dis004_Eu, dis005_Eu, dis006_Eu, dis007_Eu, dis008_Eu, dis009_Eu, dis010_Eu, dis011_Eu, dis012_Eu, dis013_Eu, dis014_Eu, dis015_Eu, dis017_Eu, dis018_Eu, dis019_Eu, dis020_Eu, dis021_Eu, dis022_Eu, dis023_Eu, dis024_Eu, dis025_Eu, dis027_Eu, disPADOVA0001, disPADOVA0002, disPADOVA0003, disPADOVA0004, disPADOVA0005, disPADOVA0006, disPADOVA0007, disPADOVA0008, disPADOVA0009, disPADOVA0010, disPADOVA0011, disPADOVA0012, disPADOVA0013, disPADOVA0014, disPADOVA0015, disPADOVA0016, disPADOVA0017, disPADOVA0018, disPADOVA0019, disPADOVA0020, disPADOVA0021, disPADOVA0022, disPADOVA0023, disPADOVA0024, disPADOVA0025, disPADOVA0026, disPADOVA0027, disPADOVA0028, disPADOVA0029, disPADOVA0030, disPADOVA0031, disPADOVA0032);
+
+
+save ('Dis','Dis')
+
+EF= AgrAll
+EF.avg=DisAll.avg-AgrAll.avg
+
+save ('Agr','Agr')
+save ('Dis','Dis')
+save ('AgrAll','AgrAll')
+save ('DisAll','DisAll')
+save ('EF','EF')
+
+%% by-subject topo plots
+
+DiffAll = DisAll;
+
+cfg = [];
+cfg.xlim = [0.3 0.5];%Select a time range
+cfg.zlim=[-3 3]; %To fix the limits
+cfg.layout = 'EEG1020.lay'; %The layout
+cfg.markersymbol       = '';
+%cfg.colorbar = 'no'; %To include the color
+
+
+figure;
+for k = 1:80,
+    
+    subplot(10, 8, k);
+
+    DisAll.avg = squeeze(Dis.individual(k, :, :));
+    AgrAll.avg = squeeze(Agr.individual(k, :, :));
+    DiffAll.avg = DisAll.avg - AgrAll.avg;
+    cfg.comment='no';
+    
+    ft_topoplotER(cfg, DiffAll);
+end;
+
+
+
+
+%% Average and Plot each item
+% bigdata = matrix containing information of ERP epochs (output of fieldtrip ft_preprocessing function) for each item and
+% each subject
+% Codes for Agreement = 1, 2, 5, 6
+% Codes for Disagreement = 3, 4, 7, 8
+
+for i= 1:240
+cfg = [];
+cfg.trials = find((bigdata.trialinfo(:,1)==1 & bigdata.trialinfo(:,3)==i | bigdata.trialinfo(:,1)==2 & bigdata.trialinfo(:,3)==i | bigdata.trialinfo(:,1)==5 & bigdata.trialinfo(:,3)==i | bigdata.trialinfo(:,1)==6 & bigdata.trialinfo(:,3)==i )); 
+AgrItem=ft_timelockanalysis(cfg,bigdata);
+Iagr{i}=AgrItem;
+end;
+
+save('Iagr','Iagr')
+
+
+for i= 1:240
+cfg = [];
+cfg.trials = find((bigdata.trialinfo(:,1)==3 & bigdata.trialinfo(:,3)==i | bigdata.trialinfo(:,1)==4 & bigdata.trialinfo(:,3)==i | bigdata.trialinfo(:,1)==7 & bigdata.trialinfo(:,3)==i | bigdata.trialinfo(:,1)==8 & bigdata.trialinfo(:,3)==i )); 
+DisItem=ft_timelockanalysis(cfg,bigdata);
+Idis{i}=DisItem;
+end;
+
+save('Idis','Idis')
+
+%% by-item topo plots
+
+DiffAll = DisAll;
+
+cfg = [];
+cfg.xlim = [0.5 0.8];%Select a time range
+cfg.zlim=[-3 3]; %To fix the limits
+cfg.layout = 'EEG1020.lay'; %The layout
+cfg.colorbar = 'no'; %To include the color
+
+figure;
+for k = 1:120,
+
+    i = k+120;
+    subplot(10, 12, k);
+
+    DisAll.avg = Idis{i}.avg;
+    AgrAll.avg = Iagr{i}.avg;
+    DiffAll.avg = DisAll.avg - AgrAll.avg;
+    cfg.comment='no';
+    
+    ft_topoplotER(cfg, DiffAll);
+end;
+
+%% Trial level analysis
+
+% bigdata = fieldtrip structure containing all data points recorded at F3 between 300 and 500 ms for each trial 
+% bigdatan = fieldtrip structure containing all data points recorded at Pz between 300 and 500 ms for each trial 
+
+
+%fig 2 order FINAL
+SUBJ={32,39,13,8,26,64,7,14,59,6,76,10,42,36,69,30,17,74,62,1,47,33,43,23,80,51,63,37,79,35,55,19,9,25,66,49,75,20,28,61,29,50,44,60,18,45,4,24,53,41,12,48,46,57,16,78,52,40,2,5,67,56,34,77,31,54,11,72,73,65,68,70,58,27,22,71,38,21,3,15};
+figure('position', [10, 100, 1800, 800])
+
+
+for k = 1:size(SUBJ,2),
+
+% extract each condition
+vio=bigdata.trial(find(bigdata.trialinfo(:,4)==SUBJ{k} & (bigdata.trialinfo(:,1)==3 | bigdata.trialinfo(:,1)==4 | bigdata.trialinfo(:,1)==7 | bigdata.trialinfo(:,1)==8)),:); 
+con=bigdata.trial(find(bigdata.trialinfo(:,4)==SUBJ{k} & (bigdata.trialinfo(:,1)==1 | bigdata.trialinfo(:,1)==2 | bigdata.trialinfo(:,1)==5 | bigdata.trialinfo(:,1)==6)),:); 
+
+vion=bigdatan.trial(find(bigdatan.trialinfo(:,4)==SUBJ{k} & (bigdatan.trialinfo(:,1)==3 | bigdatan.trialinfo(:,1)==4 | bigdatan.trialinfo(:,1)==7 | bigdatan.trialinfo(:,1)==8)),:); 
+conn=bigdatan.trial(find(bigdatan.trialinfo(:,4)==SUBJ{k} & (bigdatan.trialinfo(:,1)==1 | bigdatan.trialinfo(:,1)==2 | bigdatan.trialinfo(:,1)==5 | bigdatan.trialinfo(:,1)==6)),:); 
+
+
+
+% Average for each trial LAN over the time window
+ac = mean(con(:,:),2);
+av = mean(vio(:,:),2);
+% Average for each trial N400 over the time window
+acn = mean(conn(:,:),2);
+avn = mean(vion(:,:),2);
+
+
+% divide the averages into bins and create an index based on the bin they
+% belong to for LAN and N400
+
+%control LAN
+Y=quantile(ac,76) % number of bins can be changes; min number of trials 77
+edges= [min(ac),Y,max(ac)]
+[~, discrete_c] = histc(ac, edges);
+discrete_c(discrete_c == length(edges)) = length(edges)-1;
+
+%violation LAN
+Y=quantile(av,76)
+edges= [min(av),Y,max(av)] 
+[~, discrete_v] = histc(av, edges);
+discrete_v(discrete_v == length(edges)) = length(edges)-1;
+
+% average ERP within bins LAN
+Vb = table(av, discrete_v)
+Vbin = varfun(@mean,Vb,'GroupingVariables','discrete_v')
+V=table2array(Vbin)
+
+Cb = table(ac, discrete_c)
+Cbin = varfun(@mean,Cb,'GroupingVariables','discrete_c')
+C=table2array(Cbin)
+
+Diff=V(:,3)-C(:,3)
+
+
+%control N400
+Y=quantile(acn,76) % number of bins can be changes; min number of trials 77
+edges= [min(acn),Y,max(acn)]
+[~, discrete_cn] = histc(acn, edges);
+discrete_cn(discrete_cn == length(edges)) = length(edges)-1;
+
+%violation N400
+Y=quantile(avn,76)
+edges= [min(avn),Y,max(avn)] 
+[~, discrete_vn] = histc(avn, edges);
+discrete_vn(discrete_vn == length(edges)) = length(edges)-1;
+
+% average ERP within bins N400
+Vbn = table(avn, discrete_vn)
+Vbinn = varfun(@mean,Vbn,'GroupingVariables','discrete_vn')
+Vn=table2array(Vbinn)
+
+Cbn = table(acn, discrete_cn)
+Cbinn = varfun(@mean,Cbn,'GroupingVariables','discrete_cn')
+Cn=table2array(Cbinn)
+
+Diffn=Vn(:,3)-Cn(:,3)
+
+group = [ 1 * ones(size(Diff)); 2 * ones(size(Diffn))];
+subplot(8,10,k);
+boxplot([Diff; Diffn],group)
+h=findobj(gca,'tag','Outliers');
+delete(h)
+ylim([-7 7])
+set(gca,'XTickLabel',{'F3','Pz'},'FontSize',7)
+
+end;
